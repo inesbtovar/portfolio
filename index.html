@@ -554,6 +554,23 @@
     margin-top: 40px;
   }
 }
+/* Hide overlays when the video is playing */
+.video-card.playing .play-btn,
+.video-card.playing .video-title,
+.video-card.playing .video-badge {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Ensure the video takes up the whole card */
+.video-card video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
   </style>
 </head>
 <body>
@@ -593,14 +610,14 @@
     </div>
 
     <div class="hero-video-wrap">
-      <div class="video-card vid-bg-1 intro-video">
-        <span class="video-badge">Introduction</span>
-        <div class="play-btn">
-          <svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg>
-        </div>
-        <p class="video-title">Watch Intro</p>
-      </div>
-    </div>
+  <div class="video-card reveal reveal-delay-1" onclick="toggleVideo(this)">
+    <video width="100%" height="100%" poster="your-thumbnail.jpg" controls style="object-fit: cover;">
+      <source src="intro.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <span class="video-badge">Introduction</span>
+  </div>
+</div>
   </div>
 </section>
 
@@ -613,28 +630,31 @@
       <p class="section-sub">See my content creation style through these demo videos</p>
     </div>
     <div class="video-grid">
-      <div class="video-card vid-bg-1 reveal reveal-delay-1">
-        <span class="video-badge">Beauty</span>
-        <div class="play-btn">
-          <svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg>
-        </div>
-        <p class="video-title">Product Review</p>
-      </div>
-      <div class="video-card vid-bg-2 reveal reveal-delay-2">
-        <span class="video-badge">Lifestyle</span>
-        <div class="play-btn">
-          <svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg>
-        </div>
-        <p class="video-title">Lifestyle Content</p>
-      </div>
-      <div class="video-card vid-bg-3 reveal reveal-delay-3">
-        <span class="video-badge">Product</span>
-        <div class="play-btn">
-          <svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg>
-        </div>
-        <p class="video-title">Unboxing</p>
-      </div>
-    </div>
+  <div class="video-card reveal reveal-delay-1" onclick="toggleVideo(this)">
+    <video width="100%" height="100%" controls style="object-fit: cover;">
+      <source src="vid-bg-1.mp4" type="video/mp4">
+    </video>
+    <span class="video-badge">Beauty</span>
+    <p class="video-title">Product Review</p>
+  </div>
+
+  <div class="video-card reveal reveal-delay-1" onclick="toggleVideo(this)">
+    <video width="100%" height="100%" controls style="object-fit: cover;">
+      <source src="video-bg-2.mp4" type="video/mp4">
+    </video>
+    <span class="video-badge">Technology</span>
+    <p class="video-title">AI Help</p>
+  </div>
+
+  <div class="video-card reveal reveal-delay-1" onclick="toggleVideo(this)">
+    <video width="100%" height="100%" controls style="object-fit: cover;">
+      <source src="vid-bg-3.mp4" type="video/mp4">
+    </video>
+    <span class="video-badge">Technology</span>
+    <p class="video-title">App Features</p>
+  </div>
+
+</div>
   </div>
 </section>
 
@@ -705,12 +725,12 @@
         </div>
       </div>
       <div class="about-image reveal reveal-delay-2">
-        <div class="about-img-wrap">
-          <div class="about-img-placeholder">IT</div>
-        </div>
-        <div class="about-deco"></div>
-        <div class="about-deco2"></div>
-      </div>
+  <div class="about-img-wrap">
+    <img src="ines-tovar-photo.jpg" alt="Inês Tovar" style="width: 100%; height: 100%; object-fit: cover;">
+  </div>
+  <div class="about-deco"></div>
+  <div class="about-deco2"></div>
+</div>
     </div>
   </div>
 </section>
@@ -801,6 +821,24 @@
       if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); nav.classList.remove('menu-open'); }
     });
   });
+
+  function toggleVideo(card) {
+  const video = card.querySelector('video');
+  
+  if (video.paused) {
+    // Optional: Pause all other videos before playing this one
+    document.querySelectorAll('video').forEach(v => {
+      v.pause();
+      v.parentElement.classList.remove('playing');
+    });
+
+    video.play();
+    card.classList.add('playing');
+  } else {
+    video.pause();
+    card.classList.remove('playing');
+  }
+}
 </script>
 </body>
 </html>
