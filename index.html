@@ -492,6 +492,68 @@
         gap: 20px;
       }
     }
+
+    /* Update Hero Layout */
+.hero-container {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: center;
+  gap: 40px;
+  text-align: left; /* Align text to the left now */
+  z-index: 5;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hero-btns {
+  justify-content: flex-start; /* Align buttons to the left */
+}
+
+.hero-sub {
+  margin: 22px 0 0; /* Remove auto margins */
+}
+
+.scroll-hint {
+  margin-top: 40px;
+}
+
+.hero-video-wrap {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  opacity: 0;
+  animation: fadeUp .8s .7s var(--ease) forwards;
+}
+
+/* Specific styling for the Intro Video Card */
+.intro-video {
+  height: 450px; /* Gives it a nice vertical phone-style look */
+  border: 4px solid #fff;
+  box-shadow: 0 20px 40px rgba(232,23,58,0.15);
+}
+
+/* Mobile adjustments */
+@media (max-width: 900px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding-top: 40px;
+  }
+  .hero-content {
+    align-items: center;
+  }
+  .hero-btns {
+    justify-content: center;
+  }
+  .hero-video-wrap {
+    max-width: 260px;
+    margin-top: 40px;
+  }
+}
   </style>
 </head>
 <body>
@@ -518,13 +580,28 @@
 <section id="hero">
   <div class="hero-blob blob1"></div>
   <div class="hero-blob blob2"></div>
-  <p class="hero-label">UGC Creator Portfolio</p>
-  <h1>Inês <em>Tovar</em></h1>
-  <p class="hero-sub">Creating authentic content that brings brands to life</p>
-  <p class="scroll-hint">Scroll to explore<span class="scroll-arrow"></span></p>
-  <div class="hero-btns">
-    <a href="#videos" class="btn btn-primary">View Demo Videos</a>
-    <a href="#contact" class="btn btn-outline">Get In Touch</a>
+  
+  <div class="container hero-container">
+    <div class="hero-content">
+      <p class="hero-label">UGC Creator Portfolio</p>
+      <h1>Inês <em>Tovar</em></h1>
+      <p class="hero-sub">Creating authentic content that brings brands to life</p>
+      <div class="hero-btns">
+        <a href="#videos" class="btn btn-primary">View Demo Videos</a>
+        <a href="#contact" class="btn btn-outline">Get In Touch</a>
+      </div>
+      <p class="scroll-hint">Scroll to explore<span class="scroll-arrow"></span></p>
+    </div>
+
+    <div class="hero-video-wrap">
+      <div class="video-card vid-bg-1 intro-video">
+        <span class="video-badge">Introduction</span>
+        <div class="play-btn">
+          <svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg>
+        </div>
+        <p class="video-title">Watch Intro</p>
+      </div>
+    </div>
   </div>
 </section>
 
