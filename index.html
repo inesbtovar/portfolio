@@ -296,7 +296,7 @@
     </div>
     <div class="hero-video-wrap">
       <div class="intro-video-card" onclick="activateVideo(this)">
-        <video src="intro.mp4" poster="your-thumbnail.jpg" playsinline preload="none"></video>
+        <video src="intro.mp4" playsinline autoplay muted loop preload="auto"></video>
       </div>
     </div>
   </div>
@@ -315,7 +315,7 @@
 
       <div class="clean-video-block reveal reveal-delay-1">
         <div class="clean-video-wrap" onclick="activateVideo(this)">
-          <video src="vid-bg-1.mp4" playsinline preload="none"></video>
+          <video src="vid-bg-1.mp4" playsinline autoplay muted loop preload="auto"></video>
         </div>
         <div class="clean-video-meta">
           <span class="clean-video-title">Product Review</span>
@@ -325,7 +325,7 @@
 
       <div class="clean-video-block reveal reveal-delay-2">
         <div class="clean-video-wrap" onclick="activateVideo(this)">
-          <video src="vid-bg-2.mp4" playsinline preload="none"></video>
+          <video src="vid-bg-2.mp4" playsinline autoplay muted loop preload="auto"></video>
         </div>
         <div class="clean-video-meta">
           <span class="clean-video-title">AI Help</span>
@@ -335,7 +335,7 @@
 
       <div class="clean-video-block reveal reveal-delay-3">
         <div class="clean-video-wrap" onclick="activateVideo(this)">
-          <video src="vid-bg-3.mp4" playsinline preload="none"></video>
+          <video src="vid-bg-3.mp4" playsinline autoplay muted loop preload="auto"></video>
         </div>
         <div class="clean-video-meta">
           <span class="clean-video-title">App Features</span>
@@ -482,16 +482,45 @@
   }, { threshold: 0.15 });
   reveals.forEach(el => io.observe(el));
 
-  /* ACTIVATE VIDEO ON CLICK — show controls, play */
+  /* ACTIVATE VIDEO ON CLICK — unmute + show controls, pause all others */
   function activateVideo(wrap) {
     const video = wrap.querySelector('video');
-    if (!video.hasAttribute('controls')) {
-      video.setAttribute('controls', '');
-      video.classList.add('is-playing');
-      wrap.style.pointerEvents = 'none';
-      video.style.pointerEvents = 'auto';
-      video.play();
-    }
+
+    // If already active, do nothing
+    if (video.classList.contains('is-playing')) return;
+
+    // Reset all videos back to silent preview
+    document.querySelectorAll('.clean-video-wrap, .intro-video-card').forEach(w => {
+      const v = w.querySelector('video');
+      v.pause();
+      v.muted = true;
+      v.loop = true;
+      v.removeAttribute('controls');
+      v.classList.remove('is-playing');
+      w.style.pointerEvents = 'auto';
+      v.style.pointerEvents = 'none';
+      v.play().catch(() => {});
+    });
+
+    // Activate clicked one: unmute, show controls, play
+    video.muted = false;
+    video.loop = false;
+    video.setAttribute('controls', '');
+    video.classList.add('is-playing');
+    wrap.style.pointerEvents = 'none';
+    video.style.pointerEvents = 'auto';
+    video.play();
+
+    // When it ends, go back to muted preview loop
+    video.onended = () => {
+      video.muted = true;
+      video.loop = true;
+      video.removeAttribute('controls');
+      video.classList.remove('is-playing');
+      wrap.style.pointerEvents = 'auto';
+      video.style.pointerEvents = 'none';
+      video.play().catch(() => {});
+    };
   }
 
   /* SMOOTH ANCHOR */
