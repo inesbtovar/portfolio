@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inês Tovar — UGC Creator Portfolio</title>
+  <title>Inês Tovar — Tech &amp; App UGC Creator</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
@@ -89,6 +89,10 @@
     .hero-btns { justify-content: flex-start; }
     .hero-sub { margin: 22px 0 0; }
     .hero-video-wrap { width: 100%; max-width: 320px; margin: 0 auto; opacity: 0; animation: fadeUp .8s .7s var(--ease) forwards; }
+    .hero-stats { display: flex; gap: 36px; margin-top: 44px; opacity: 0; animation: fadeUp .8s .75s var(--ease) forwards; }
+    .hero-stat strong { display: block; font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--red); line-height: 1; }
+    .hero-stat span { font-size: .75rem; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+    .hero-btns { margin-top: 36px; }
 
     .intro-video-card {
       border-radius: 24px;
@@ -113,6 +117,7 @@
       .hero-container { grid-template-columns: 1fr; text-align: center; padding-top: 40px; }
       .hero-content { align-items: center; }
       .hero-btns { justify-content: center; }
+      .hero-stats { justify-content: center; gap: 24px; }
       .hero-video-wrap { max-width: 260px; margin-top: 40px; }
     }
 
@@ -126,9 +131,38 @@
       margin-top: 56px;
     }
 
+    .video-grid.cols-4 { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+    @media (max-width: 900px) {
+      .video-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
+    }
+
     @media (max-width: 768px) {
       .video-grid { grid-template-columns: 1fr; max-width: 360px; margin-left: auto; margin-right: auto; }
+      .video-grid.cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: none; gap: 14px; }
+      .video-grid.cols-4 .clean-video-meta { flex-wrap: wrap; gap: 6px; }
+      .video-grid.cols-4 .clean-video-tag { font-size: .62rem; padding: 3px 9px; }
     }
+
+    /* ── HIGH VOLUME CASE ── */
+    #volume { background: var(--dark); }
+    #volume h2 { color: #fff; }
+    #volume .section-sub { color: rgba(255,255,255,.6); }
+    #volume .clean-video-title { color: #fff; }
+    .volume-head { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: end; }
+    .volume-points { list-style: none; display: grid; gap: 14px; }
+    .volume-points li { color: rgba(255,255,255,.65); font-size: .9rem; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,.1); }
+    .volume-points strong { color: var(--red-light); font-family: 'Playfair Display', serif; font-size: 1.15rem; margin-right: 8px; }
+    .volume-strip { display: grid; grid-auto-flow: column; grid-auto-columns: 220px; gap: 18px; overflow-x: auto; margin-top: 56px; padding-bottom: 16px; scroll-snap-type: x mandatory; scrollbar-color: var(--red) rgba(255,255,255,.08); }
+    .volume-strip .clean-video-block { scroll-snap-align: start; }
+    .volume-hint { margin-top: 12px; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.35); }
+    @media (max-width: 768px) {
+      .volume-head { grid-template-columns: 1fr; gap: 32px; }
+      .volume-strip { grid-auto-columns: 62%; }
+    }
+
+    /* ── OTHER NICHES ── */
+    #other .video-grid { max-width: 800px; margin-left: auto; margin-right: auto; }
 
     .clean-video-block {
       display: flex;
@@ -270,7 +304,8 @@
 <nav id="nav">
   <a href="#hero" class="nav-logo">Inês Tovar</a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#videos">Videos</a></li>
+    <li><a href="#videos">Work</a></li>
+    <li><a href="#volume">High Volume</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -286,12 +321,17 @@
   <div class="hero-blob blob2"></div>
   <div class="container hero-container">
     <div class="hero-content">
-      <p class="hero-label">UGC Creator Portfolio</p>
+      <p class="hero-label">Tech &amp; App UGC Creator</p>
       <h1>Inês <em>Tovar</em></h1>
-      <p class="hero-sub">Creating authentic content that brings brands to life</p>
+      <p class="hero-sub">UGC for apps, AI tools and SaaS that stops the scroll, delivered in batches with hook variations ready to test.</p>
       <div class="hero-btns">
-        <a href="#videos" class="btn btn-primary">View Demo Videos</a>
+        <a href="#videos" class="btn btn-primary">See the Work</a>
         <a href="#contact" class="btn btn-outline">Get In Touch</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong>14</strong><span>tech &amp; app videos</span></div>
+        <div class="hero-stat"><strong>7</strong><span>tech brands</span></div>
+        <div class="hero-stat"><strong>7</strong><span>creatives for one brand</span></div>
       </div>
     </div>
     <div class="hero-video-wrap">
@@ -302,50 +342,145 @@
   </div>
 </section>
 
-<!-- DEMO VIDEOS -->
+<!-- TECH & APP VIDEOS -->
 <section id="videos">
   <div class="container">
     <div class="center reveal">
       <p class="section-label">My Work</p>
-      <h2>Demo <em>Videos</em></h2>
-      <p class="section-sub">See my content creation style through these demo videos</p>
+      <h2>Tech &amp; App <em>UGC</em></h2>
+      <p class="section-sub">AI tools, apps and SaaS: talking-head reviews, screen demos and B-roll built to convert</p>
+    </div>
+
+    <div class="video-grid cols-4">
+
+      <div class="clean-video-block reveal reveal-delay-1">
+        <div class="clean-video-wrap" onclick="activateVideo(this)">
+          <video src="solvely_ai.mp4" playsinline muted loop preload="none"></video>
+        </div>
+        <div class="clean-video-meta">
+          <span class="clean-video-title">Solvely AI</span>
+          <span class="clean-video-tag">AI Tool</span>
+        </div>
+      </div>
+
+      <div class="clean-video-block reveal reveal-delay-2">
+        <div class="clean-video-wrap" onclick="activateVideo(this)">
+          <video src="parakeet_ai.mp4" playsinline muted loop preload="none"></video>
+        </div>
+        <div class="clean-video-meta">
+          <span class="clean-video-title">Parakeet AI</span>
+          <span class="clean-video-tag">AI Tool</span>
+        </div>
+      </div>
+
+      <div class="clean-video-block reveal reveal-delay-3">
+        <div class="clean-video-wrap" onclick="activateVideo(this)">
+          <video src="ai_help.mp4" playsinline muted loop preload="none"></video>
+        </div>
+        <div class="clean-video-meta">
+          <span class="clean-video-title">Claude AI</span>
+          <span class="clean-video-tag">AI Tool</span>
+        </div>
+      </div>
+
+      <div class="clean-video-block reveal reveal-delay-4">
+        <div class="clean-video-wrap" onclick="activateVideo(this)">
+          <video src="sideshift.mp4" playsinline muted loop preload="none"></video>
+        </div>
+        <div class="clean-video-meta">
+          <span class="clean-video-title">Sideshift</span>
+          <span class="clean-video-tag">App</span>
+        </div>
+      </div>
+
+      <div class="clean-video-block reveal reveal-delay-1">
+        <div class="clean-video-wrap" onclick="activateVideo(this)">
+          <video src="eventsdock.mp4" playsinline muted loop preload="none"></video>
+        </div>
+        <div class="clean-video-meta">
+          <span class="clean-video-title">EventsDock</span>
+          <span class="clean-video-tag">App Demo</span>
+        </div>
+      </div>
+
+      <div class="clean-video-block reveal reveal-delay-2">
+        <div class="clean-video-wrap" onclick="activateVideo(this)">
+          <video src="eromify.mp4" playsinline muted loop preload="none"></video>
+        </div>
+        <div class="clean-video-meta">
+          <span class="clean-video-title">Eromify</span>
+          <span class="clean-video-tag">Screen B-roll</span>
+        </div>
+      </div>
+
+      <div class="clean-video-block reveal reveal-delay-3">
+        <div class="clean-video-wrap" onclick="activateVideo(this)">
+          <video src="eromify2.mp4" playsinline muted loop preload="none"></video>
+        </div>
+        <div class="clean-video-meta">
+          <span class="clean-video-title">Eromify</span>
+          <span class="clean-video-tag">Screen B-roll</span>
+        </div>
+      </div>
+
+      <div class="clean-video-block reveal reveal-delay-4">
+        <div class="clean-video-wrap" onclick="activateVideo(this)">
+          <video src="babysitting.mp4" playsinline muted loop preload="none"></video>
+        </div>
+        <div class="clean-video-meta">
+          <span class="clean-video-title">Babysitting</span>
+          <span class="clean-video-tag">Storytime</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HIGH VOLUME CASE -->
+<section id="volume">
+  <div class="container">
+    <div class="volume-head">
+      <div class="reveal">
+        <p class="section-label">High-Volume UGC</p>
+        <h2>7 creatives, <em>1 brand</em></h2>
+        <p class="section-sub">For Prepia, an AI study app, I shot a full batch of ads with different hooks, outfits, settings and lengths, so the team could test angles and scale what works.</p>
+      </div>
+      <ul class="volume-points reveal reveal-delay-2">
+        <li><strong>7</strong> ready-to-run videos</li>
+        <li><strong>7s &rarr; 40s</strong> from quick hooks to full explainers</li>
+        <li><strong>3</strong> filming setups and looks</li>
+        <li><strong>A/B ready</strong> with the same message from different angles</li>
+      </ul>
+    </div>
+
+    <div class="volume-strip">
+      <div class="clean-video-block"><div class="clean-video-wrap" onclick="activateVideo(this)"><video src="prepia1.mp4" playsinline muted loop preload="none"></video></div><div class="clean-video-meta"><span class="clean-video-title">Prepia #01</span><span class="clean-video-tag">Text Hook</span></div></div>
+      <div class="clean-video-block"><div class="clean-video-wrap" onclick="activateVideo(this)"><video src="prepia7.mp4" playsinline muted loop preload="none"></video></div><div class="clean-video-meta"><span class="clean-video-title">Prepia #02</span><span class="clean-video-tag">Captioned</span></div></div>
+      <div class="clean-video-block"><div class="clean-video-wrap" onclick="activateVideo(this)"><video src="prepia2.mp4" playsinline muted loop preload="none"></video></div><div class="clean-video-meta"><span class="clean-video-title">Prepia #03</span><span class="clean-video-tag">Talking Head</span></div></div>
+      <div class="clean-video-block"><div class="clean-video-wrap" onclick="activateVideo(this)"><video src="prepia3.mp4" playsinline muted loop preload="none"></video></div><div class="clean-video-meta"><span class="clean-video-title">Prepia #04</span><span class="clean-video-tag">Talking Head</span></div></div>
+      <div class="clean-video-block"><div class="clean-video-wrap" onclick="activateVideo(this)"><video src="prepia4.mp4" playsinline muted loop preload="none"></video></div><div class="clean-video-meta"><span class="clean-video-title">Prepia #05</span><span class="clean-video-tag">Talking Head</span></div></div>
+      <div class="clean-video-block"><div class="clean-video-wrap" onclick="activateVideo(this)"><video src="prepia5.mp4" playsinline muted loop preload="none"></video></div><div class="clean-video-meta"><span class="clean-video-title">Prepia #06</span><span class="clean-video-tag">Talking Head</span></div></div>
+      <div class="clean-video-block"><div class="clean-video-wrap" onclick="activateVideo(this)"><video src="prepia6.mp4" playsinline muted loop preload="none"></video></div><div class="clean-video-meta"><span class="clean-video-title">Prepia #07</span><span class="clean-video-tag">Talking Head</span></div></div>
+    </div>
+    <p class="volume-hint">Scroll sideways &rarr;</p>
+  </div>
+</section>
+
+<!-- OTHER NICHES -->
+<section id="other">
+  <div class="container">
+    <div class="center reveal">
+      <p class="section-label">Beyond Tech</p>
+      <h2>Other <em>Niches</em></h2>
+      <p class="section-sub">Food and beauty content in the same authentic style</p>
     </div>
 
     <div class="video-grid">
 
       <div class="clean-video-block reveal reveal-delay-1">
         <div class="clean-video-wrap" onclick="activateVideo(this)">
-          <video src="sideshift.mp4" playsinline autoplay muted loop preload="auto"></video>
-        </div>
-        <div class="clean-video-meta">
-          <span class="clean-video-title">Sideshift</span>
-          <span class="clean-video-tag">Technology</span>
-        </div>
-      </div>
-
-      <div class="clean-video-block reveal reveal-delay-2">
-        <div class="clean-video-wrap" onclick="activateVideo(this)">
-          <video src="ai_help.mp4" playsinline autoplay muted loop preload="auto"></video>
-        </div>
-        <div class="clean-video-meta">
-          <span class="clean-video-title">Claude AI</span>
-          <span class="clean-video-tag">Technology</span>
-        </div>
-      </div>
-
-      <div class="clean-video-block reveal reveal-delay-3">
-        <div class="clean-video-wrap" onclick="activateVideo(this)">
-          <video src="eventsdock.mp4" playsinline autoplay muted loop preload="auto"></video>
-        </div>
-        <div class="clean-video-meta">
-          <span class="clean-video-title">EventsDock App</span>
-          <span class="clean-video-tag">Technology</span>
-        </div>
-      </div>
-
-      <div class="clean-video-block reveal reveal-delay-3">
-        <div class="clean-video-wrap" onclick="activateVideo(this)">
-          <video src="Restaurant_review.mp4" playsinline autoplay muted loop preload="auto"></video>
+          <video src="Restaurant_review.mp4" playsinline muted loop preload="none"></video>
         </div>
         <div class="clean-video-meta">
           <span class="clean-video-title">Papa Restaurant</span>
@@ -353,19 +488,19 @@
         </div>
       </div>
 
-            <div class="clean-video-block reveal reveal-delay-3">
+      <div class="clean-video-block reveal reveal-delay-2">
         <div class="clean-video-wrap" onclick="activateVideo(this)">
-          <video src="Portugal_burguer_cup.mp4" playsinline autoplay muted loop preload="auto"></video>
+          <video src="Portugal_burguer_cup.mp4" playsinline muted loop preload="none"></video>
         </div>
         <div class="clean-video-meta">
-          <span class="clean-video-title">Burguer Review</span>
+          <span class="clean-video-title">Burger Review</span>
           <span class="clean-video-tag">Food</span>
         </div>
       </div>
 
-             <div class="clean-video-block reveal reveal-delay-3">
+      <div class="clean-video-block reveal reveal-delay-3">
         <div class="clean-video-wrap" onclick="activateVideo(this)">
-          <video src="product_review.mp4" playsinline autoplay muted loop preload="auto"></video>
+          <video src="product_review.mp4" playsinline muted loop preload="none"></video>
         </div>
         <div class="clean-video-meta">
           <span class="clean-video-title">Product Review</span>
@@ -383,36 +518,36 @@
     <div class="center reveal">
       <p class="section-label">What I Offer</p>
       <h2><em>Services</em></h2>
-      <p class="section-sub">Tailored content creation services to help your brand connect with your audience</p>
+      <p class="section-sub">Built for app, AI and SaaS teams that need lots of creative to test, fast</p>
     </div>
     <div class="services-grid">
       <div class="service-card reveal reveal-delay-1">
         <div class="service-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
         </div>
-        <h3>Video Content</h3>
-        <p>Engaging short-form videos for TikTok, Instagram Reels, and YouTube Shorts</p>
+        <h3>High-Volume Batches</h3>
+        <p>Multiple ready-to-run videos per brief for TikTok, Reels and Shorts ads, so you always have fresh creative</p>
       </div>
       <div class="service-card reveal reveal-delay-2">
         <div class="service-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
         </div>
-        <h3>Product Photography</h3>
-        <p>High-quality lifestyle photos showcasing your products authentically</p>
+        <h3>App &amp; Screen Demos</h3>
+        <p>Screen recordings and laptop or phone B-roll that show your product in real use</p>
       </div>
       <div class="service-card reveal reveal-delay-3">
         <div class="service-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         </div>
-        <h3>Social Media Strategy</h3>
-        <p>Content planning and trend-focused creation for maximum engagement</p>
+        <h3>Hook Variations</h3>
+        <p>Several openings and angles for the same script, ready to A/B test and scale what wins</p>
       </div>
       <div class="service-card reveal reveal-delay-4">
         <div class="service-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
         </div>
-        <h3>Unboxing & Reviews</h3>
-        <p>Honest product reviews and unboxing experiences that drive conversions</p>
+        <h3>Talking-Head Reviews</h3>
+        <p>Natural, relatable reviews of AI tools and apps, with captions and text hooks</p>
       </div>
     </div>
   </div>
@@ -428,6 +563,7 @@
         <br>
         <p>Hi! I'm Inês, passionate with a creative mindset and hands-on experience in branding, marketing, and digital content.</p>
         <p>Currently studying Multimedia Design at the University of Coimbra, I've worked as an Event Promoter and Marketing Trainee, where I developed my skills in visual communication and creative problem-solving.</p>
+        <p>Today I focus on UGC for tech: AI tools, study apps and SaaS products. I'm comfortable on camera, quick with screen demos, and used to delivering in volume.</p>
         <p>I thrive on crafting user-centric content that balances clarity, aesthetics, and real impact, always with a "get-things-done" mentality.</p>
         <div class="traits">
           <div class="trait">Proactive</div>
@@ -452,7 +588,7 @@
     <div class="reveal">
       <p class="section-label">Let's Connect</p>
       <h2>Let's Work <em>Together</em></h2>
-      <p class="section-sub" style="margin: 12px auto 0">Ready to create authentic content for your brand? Let's connect!</p>
+      <p class="section-sub" style="margin: 12px auto 0">Launching an app or scaling your ads? Send me your brief and I'll send back a batch of creatives.</p>
     </div>
     <div class="contact-cards">
       <a href="mailto:ines.btovar@gmail.com" class="contact-card reveal reveal-delay-1">
@@ -512,6 +648,17 @@
   }, { threshold: 0.15 });
   reveals.forEach(el => io.observe(el));
 
+  /* LAZY PREVIEW — only play muted previews while on screen */
+  const inView = new Set();
+  const videoIO = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      const v = e.target;
+      if (e.isIntersecting) { inView.add(v); v.play().catch(() => {}); }
+      else { inView.delete(v); v.pause(); }
+    });
+  }, { threshold: 0.25 });
+  document.querySelectorAll('.clean-video-wrap video, .intro-video-card video').forEach(v => videoIO.observe(v));
+
   /* ACTIVATE VIDEO ON CLICK — unmute + show controls, pause all others */
   function activateVideo(wrap) {
     const video = wrap.querySelector('video');
@@ -529,7 +676,7 @@
       v.classList.remove('is-playing');
       w.style.pointerEvents = 'auto';
       v.style.pointerEvents = 'none';
-      v.play().catch(() => {});
+      if (inView.has(v)) v.play().catch(() => {});
     });
 
     // Activate clicked one: unmute, show controls, play
