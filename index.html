@@ -26,11 +26,6 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
 
-    /* CURSOR */
-    .cursor { width: 12px; height: 12px; background: var(--red); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: transform .1s var(--ease), width .3s, height .3s; mix-blend-mode: multiply; }
-    .cursor-ring { width: 36px; height: 36px; border: 1.5px solid var(--red); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: left .12s var(--ease), top .12s var(--ease), width .3s, height .3s; }
-    body:has(a:hover) .cursor { width: 20px; height: 20px; }
-    body:has(a:hover) .cursor-ring { width: 50px; height: 50px; }
 
     /* NAV */
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; transition: background .4s, box-shadow .4s; }
@@ -144,21 +139,34 @@
       .video-grid.cols-4 .clean-video-tag { font-size: .62rem; padding: 3px 9px; }
     }
 
+    /* ── SPLIT HEAD + VIDEO STRIP (tech + high volume) ── */
+    .split-head { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: end; }
+    .split-points { list-style: none; display: grid; gap: 14px; }
+    .split-points li { color: var(--mid); font-size: .9rem; padding-bottom: 14px; border-bottom: 1px solid rgba(232,23,58,.12); }
+    .split-points strong { color: var(--red); font-family: 'Playfair Display', serif; font-size: 1.15rem; margin-right: 8px; }
+    .video-strip { display: grid; grid-auto-flow: column; grid-auto-columns: 220px; gap: 18px; overflow-x: auto; margin-top: 56px; padding-bottom: 16px; scroll-snap-type: x mandatory; scrollbar-color: var(--red) rgba(232,23,58,.08); }
+    .video-strip .clean-video-block { scroll-snap-align: start; }
+    .strip-hint { margin-top: 12px; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+    .brand-row { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 26px; }
+    .brand-row span { font-size: .8rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--dark); opacity: .55; }
+    .brand-row small { width: 100%; font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--red); }
+
     /* ── HIGH VOLUME CASE ── */
     #volume { background: var(--dark); }
     #volume h2 { color: #fff; }
     #volume .section-sub { color: rgba(255,255,255,.6); }
     #volume .clean-video-title { color: #fff; }
-    .volume-head { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: end; }
-    .volume-points { list-style: none; display: grid; gap: 14px; }
-    .volume-points li { color: rgba(255,255,255,.65); font-size: .9rem; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,.1); }
-    .volume-points strong { color: var(--red-light); font-family: 'Playfair Display', serif; font-size: 1.15rem; margin-right: 8px; }
-    .volume-strip { display: grid; grid-auto-flow: column; grid-auto-columns: 220px; gap: 18px; overflow-x: auto; margin-top: 56px; padding-bottom: 16px; scroll-snap-type: x mandatory; scrollbar-color: var(--red) rgba(255,255,255,.08); }
-    .volume-strip .clean-video-block { scroll-snap-align: start; }
-    .volume-hint { margin-top: 12px; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.35); }
+    #volume .split-points li { color: rgba(255,255,255,.65); border-bottom-color: rgba(255,255,255,.1); }
+    #volume .split-points strong { color: var(--red-light); }
+    #volume .video-strip { scrollbar-color: var(--red) rgba(255,255,255,.08); }
+    #volume .strip-hint { color: rgba(255,255,255,.35); }
+
+    /* ── DELIVERABLES ── */
+    .deliverables { margin-top: 48px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .deliverables span { font-size: .8rem; color: var(--mid); background: var(--card); border: 1px solid rgba(232,23,58,.15); border-radius: 50px; padding: 8px 18px; }
     @media (max-width: 768px) {
-      .volume-head { grid-template-columns: 1fr; gap: 32px; }
-      .volume-strip { grid-auto-columns: 62%; }
+      .split-head { grid-template-columns: 1fr; gap: 32px; }
+      .video-strip { grid-auto-columns: 62%; }
     }
 
     /* ── OTHER NICHES ── */
@@ -171,6 +179,7 @@
     }
 
     .clean-video-wrap {
+      cursor: pointer;
       aspect-ratio: 9/16;
       border-radius: 20px;
       overflow: hidden;
@@ -297,8 +306,6 @@
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
 
 <!-- NAV -->
 <nav id="nav">
@@ -345,108 +352,48 @@
 <!-- TECH & APP VIDEOS -->
 <section id="videos">
   <div class="container">
-    <div class="center reveal">
-      <p class="section-label">My Work</p>
-      <h2>Tech &amp; App <em>UGC</em></h2>
-      <p class="section-sub">AI tools, apps and SaaS: talking-head reviews, screen demos and B-roll built to convert</p>
+    <div class="split-head">
+      <div class="reveal">
+        <p class="section-label">My Work</p>
+        <h2>Tech &amp; App <em>UGC</em></h2>
+        <p class="section-sub">Content for AI tools, apps and SaaS that shows the product in real use, from someone who would actually use it.</p>
+        <div class="brand-row">
+          <small>Featured brands</small>
+          <span>Prepia</span><span>Solvely</span><span>Parakeet AI</span><span>Claude</span><span>Sideshift</span><span>EventsDock</span><span>Eromify</span>
+        </div>
+      </div>
+      <ul class="split-points reveal reveal-delay-2">
+        <li><strong>Talking head</strong> honest reviews and storytime</li>
+        <li><strong>Screen demos</strong> recordings that walk through features</li>
+        <li><strong>B-roll</strong> laptop and phone shots for your editors</li>
+        <li><strong>Captions</strong> text hooks and on-screen captions</li>
+      </ul>
     </div>
 
-    <div class="video-grid cols-4">
-
-      <div class="clean-video-block reveal reveal-delay-1">
-        <div class="clean-video-wrap" onclick="activateVideo(this)">
-          <video src="solvely_ai.mp4" playsinline muted loop preload="none"></video>
-        </div>
-        <div class="clean-video-meta">
-          <span class="clean-video-title">Solvely AI</span>
-          <span class="clean-video-tag">AI Tool</span>
-        </div>
-      </div>
-
-      <div class="clean-video-block reveal reveal-delay-2">
-        <div class="clean-video-wrap" onclick="activateVideo(this)">
-          <video src="parakeet_ai.mp4" playsinline muted loop preload="none"></video>
-        </div>
-        <div class="clean-video-meta">
-          <span class="clean-video-title">Parakeet AI</span>
-          <span class="clean-video-tag">AI Tool</span>
-        </div>
-      </div>
-
-      <div class="clean-video-block reveal reveal-delay-3">
-        <div class="clean-video-wrap" onclick="activateVideo(this)">
-          <video src="ai_help.mp4" playsinline muted loop preload="none"></video>
-        </div>
-        <div class="clean-video-meta">
-          <span class="clean-video-title">Claude AI</span>
-          <span class="clean-video-tag">AI Tool</span>
-        </div>
-      </div>
-
-      <div class="clean-video-block reveal reveal-delay-4">
-        <div class="clean-video-wrap" onclick="activateVideo(this)">
-          <video src="sideshift.mp4" playsinline muted loop preload="none"></video>
-        </div>
-        <div class="clean-video-meta">
-          <span class="clean-video-title">Sideshift</span>
-          <span class="clean-video-tag">App</span>
-        </div>
-      </div>
-
-      <div class="clean-video-block reveal reveal-delay-1">
-        <div class="clean-video-wrap" onclick="activateVideo(this)">
-          <video src="eventsdock.mp4" playsinline muted loop preload="none"></video>
-        </div>
-        <div class="clean-video-meta">
-          <span class="clean-video-title">EventsDock</span>
-          <span class="clean-video-tag">App Demo</span>
-        </div>
-      </div>
-
-      <div class="clean-video-block reveal reveal-delay-2">
-        <div class="clean-video-wrap" onclick="activateVideo(this)">
-          <video src="eromify.mp4" playsinline muted loop preload="none"></video>
-        </div>
-        <div class="clean-video-meta">
-          <span class="clean-video-title">Eromify</span>
-          <span class="clean-video-tag">Screen B-roll</span>
-        </div>
-      </div>
-
-      <div class="clean-video-block reveal reveal-delay-3">
-        <div class="clean-video-wrap" onclick="activateVideo(this)">
-          <video src="eromify2.mp4" playsinline muted loop preload="none"></video>
-        </div>
-        <div class="clean-video-meta">
-          <span class="clean-video-title">Eromify</span>
-          <span class="clean-video-tag">Screen B-roll</span>
-        </div>
-      </div>
-
-      <div class="clean-video-block reveal reveal-delay-4">
-        <div class="clean-video-wrap" onclick="activateVideo(this)">
-          <video src="babysitting.mp4" playsinline muted loop preload="none"></video>
-        </div>
-        <div class="clean-video-meta">
-          <span class="clean-video-title">Babysitting</span>
-          <span class="clean-video-tag">Storytime</span>
-        </div>
-      </div>
-
+    <div class="video-strip">
+      <div class="clean-video-block"><div class="clean-video-wrap" onclick="activateVideo(this)"><video src="solvely_ai.mp4" playsinline muted loop preload="none"></video></div><div class="clean-video-meta"><span class="clean-video-title">Solvely AI</span><span class="clean-video-tag">AI Tool</span></div></div>
+      <div class="clean-video-block"><div class="clean-video-wrap" onclick="activateVideo(this)"><video src="parakeet_ai.mp4" playsinline muted loop preload="none"></video></div><div class="clean-video-meta"><span class="clean-video-title">Parakeet AI</span><span class="clean-video-tag">AI Tool</span></div></div>
+      <div class="clean-video-block"><div class="clean-video-wrap" onclick="activateVideo(this)"><video src="ai_help.mp4" playsinline muted loop preload="none"></video></div><div class="clean-video-meta"><span class="clean-video-title">Claude AI</span><span class="clean-video-tag">AI Tool</span></div></div>
+      <div class="clean-video-block"><div class="clean-video-wrap" onclick="activateVideo(this)"><video src="sideshift.mp4" playsinline muted loop preload="none"></video></div><div class="clean-video-meta"><span class="clean-video-title">Sideshift</span><span class="clean-video-tag">App</span></div></div>
+      <div class="clean-video-block"><div class="clean-video-wrap" onclick="activateVideo(this)"><video src="eventsdock.mp4" playsinline muted loop preload="none"></video></div><div class="clean-video-meta"><span class="clean-video-title">EventsDock</span><span class="clean-video-tag">App Demo</span></div></div>
+      <div class="clean-video-block"><div class="clean-video-wrap" onclick="activateVideo(this)"><video src="eromify.mp4" playsinline muted loop preload="none"></video></div><div class="clean-video-meta"><span class="clean-video-title">Eromify</span><span class="clean-video-tag">B-roll</span></div></div>
+      <div class="clean-video-block"><div class="clean-video-wrap" onclick="activateVideo(this)"><video src="eromify2.mp4" playsinline muted loop preload="none"></video></div><div class="clean-video-meta"><span class="clean-video-title">Eromify</span><span class="clean-video-tag">B-roll</span></div></div>
+      <div class="clean-video-block"><div class="clean-video-wrap" onclick="activateVideo(this)"><video src="babysitting.mp4" playsinline muted loop preload="none"></video></div><div class="clean-video-meta"><span class="clean-video-title">Babysitting</span><span class="clean-video-tag">Storytime</span></div></div>
     </div>
+    <p class="strip-hint">Scroll sideways &rarr; &nbsp;·&nbsp; Tap a video for sound</p>
   </div>
 </section>
 
 <!-- HIGH VOLUME CASE -->
 <section id="volume">
   <div class="container">
-    <div class="volume-head">
+    <div class="split-head">
       <div class="reveal">
         <p class="section-label">High-Volume UGC</p>
         <h2>7 creatives, <em>1 brand</em></h2>
         <p class="section-sub">For Prepia, an AI study app, I shot a full batch of ads with different hooks, outfits, settings and lengths, so the team could test angles and scale what works.</p>
       </div>
-      <ul class="volume-points reveal reveal-delay-2">
+      <ul class="split-points reveal reveal-delay-2">
         <li><strong>7</strong> ready-to-run videos</li>
         <li><strong>7s &rarr; 40s</strong> from quick hooks to full explainers</li>
         <li><strong>3</strong> filming setups and looks</li>
@@ -454,7 +401,7 @@
       </ul>
     </div>
 
-    <div class="volume-strip">
+    <div class="video-strip">
       <div class="clean-video-block"><div class="clean-video-wrap" onclick="activateVideo(this)"><video src="prepia1.mp4" playsinline muted loop preload="none"></video></div><div class="clean-video-meta"><span class="clean-video-title">Prepia #01</span><span class="clean-video-tag">Text Hook</span></div></div>
       <div class="clean-video-block"><div class="clean-video-wrap" onclick="activateVideo(this)"><video src="prepia7.mp4" playsinline muted loop preload="none"></video></div><div class="clean-video-meta"><span class="clean-video-title">Prepia #02</span><span class="clean-video-tag">Captioned</span></div></div>
       <div class="clean-video-block"><div class="clean-video-wrap" onclick="activateVideo(this)"><video src="prepia2.mp4" playsinline muted loop preload="none"></video></div><div class="clean-video-meta"><span class="clean-video-title">Prepia #03</span><span class="clean-video-tag">Talking Head</span></div></div>
@@ -463,7 +410,7 @@
       <div class="clean-video-block"><div class="clean-video-wrap" onclick="activateVideo(this)"><video src="prepia5.mp4" playsinline muted loop preload="none"></video></div><div class="clean-video-meta"><span class="clean-video-title">Prepia #06</span><span class="clean-video-tag">Talking Head</span></div></div>
       <div class="clean-video-block"><div class="clean-video-wrap" onclick="activateVideo(this)"><video src="prepia6.mp4" playsinline muted loop preload="none"></video></div><div class="clean-video-meta"><span class="clean-video-title">Prepia #07</span><span class="clean-video-tag">Talking Head</span></div></div>
     </div>
-    <p class="volume-hint">Scroll sideways &rarr;</p>
+    <p class="strip-hint">Scroll sideways &rarr;</p>
   </div>
 </section>
 
@@ -550,6 +497,13 @@
         <p>Natural, relatable reviews of AI tools and apps, with captions and text hooks</p>
       </div>
     </div>
+    <div class="deliverables reveal">
+      <span>9:16 vertical, 1080p</span>
+      <span>Multiple hooks per script</span>
+      <span>Captioned or clean versions</span>
+      <span>Raw footage on request</span>
+      <span>Ready for TikTok, Reels &amp; Meta ads</span>
+    </div>
   </div>
 </section>
 
@@ -622,18 +576,6 @@
 </footer>
 
 <script>
-  /* CURSOR */
-  const cursor = document.getElementById('cursor');
-  const ring   = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-  (function loop() {
-    rx += (mx - rx) * .12; ry += (my - ry) * .12;
-    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
-    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-    requestAnimationFrame(loop);
-  })();
-
   /* NAV scroll */
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
